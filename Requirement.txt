@@ -4,7 +4,7 @@ install:
     python: 3.11
   commands:
     - echo "Installing dependencies..."
-    - pip install -r Python-app/Requirements.txt || { echo 'pip install failed'; exit 1; }
+    - pip install -r Python-app/Requirements.txt 
 
 pre_build:
   commands:
