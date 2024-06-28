@@ -20,7 +20,7 @@ phases:
   pre_build:
     commands:
       - echo "Installing dependencies..."
-      - pip install -r requirements.txt --verbose 
+      - pip install -r requirements.txt --verbose || { echo 'pip install failed'; exit 1; }
 
   build:
     commands:
