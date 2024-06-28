@@ -5,17 +5,23 @@ env:
     DOCKER_REGISTRY_USERNAME: python_app_Docker-credentials-username
     DOCKER_REGISTRY_PASSWORD: python_app_docker_password
     DOCKER_REGISTRY_URL: python_app_docker_registry_url
+
 phases:
   install:
     runtime-versions:
       python: 3.11
     commands:
+      - echo "Upgrading pip..."
+      - python -m pip install --upgrade pip
+      - echo "Listing files at the root level..."
+      - ls -l
+      - echo "Listing files in Python-app directory..."
+      - ls -l Python-app || { echo 'Directory Python-app does not exist'; exit 1; }
+      - echo "Contents of requirements.txt:"
+      - cat Python-app/requirements.txt
       - echo "Installing dependencies..."
-      - pip install -r Python-app/requirements.txt || { echo 'pip install failed'; exit 1; }
-  pre_build:
-    commands:
-      - echo "Installing dependencies..."
-      - pip install -r Python-app/requirements.txt --retries 5 --timeout 30
+      - pip install -r Python-app/requirements.txt --verbose || { echo 'pip install failed'; exit 1; }
+
   build:
     commands:
       - echo "Running tests..."
@@ -24,9 +30,11 @@ phases:
       - echo "$DOCKER_REGISTRY_PASSWORD" | docker login -u "$DOCKER_REGISTRY_USERNAME" --password-stdin "$DOCKER_REGISTRY_URL"
       - docker build -t "$DOCKER_REGISTRY_URL/$DOCKER_REGISTRY_USERNAME/Python-app:latest" .
       - docker push "$DOCKER_REGISTRY_URL/$DOCKER_REGISTRY_USERNAME/Python-app:latest"
+
   post_build:
     commands:
       - echo "Build completed successfully!"
+
 artifacts:
   files:
     - '**/*'
