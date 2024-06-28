@@ -9,8 +9,7 @@ install:
 pre_build:
   commands:
     - echo "Installing dependencies..."
-    - pip install -r Python-app/Requirements.txt --retries 5 --timeout 30 
-
+    - pip install -r Python-app/Requirements.txt --retries 5 --timeout 30
 
 pre_build:
   commands:
