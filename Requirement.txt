@@ -4,12 +4,12 @@ install:
     python: 3.11
   commands:
     - echo "Installing dependencies..."
-    - pip install -r Python-app/requirements.txt || { echo 'pip install failed'; exit 1; }
+    - pip install -r Python-app/Requirements.txt || { echo 'pip install failed'; exit 1; }
 
 pre_build:
   commands:
     - echo "Installing dependencies..."
-    - pip install -r Python-app/requirements.txt --retries 5 --timeout 30
+    - pip install -r Python-app/Requirements.txt --retries 5 --timeout 30
 
 
 pre_build:
@@ -17,6 +17,6 @@ pre_build:
     - python -m venv venv
     - source venv/bin/activate
     - echo "Installing dependencies..."
-    - pip install -r Python-app/requirements.txt
+    - pip install -r Python-app/Requirements.txt
 
 
