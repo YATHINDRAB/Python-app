@@ -1,4 +1,5 @@
 version: 0.2
+
 env:
   parameter-store:
     DOCKER_REGISTRY_USERNAME: python_app_Docker-credentials-username
@@ -16,10 +17,9 @@ phases:
   build:
     commands:
       - echo "Running tests..."
-      #- cd Python-app/
       - echo "Building Docker image..."
-      - echo "DOCKER_REGISTRY_USERNAME:$DOCKER_REGISTRY_USERNAME"
-      - echo "DOCKER_REGISTRY_URL:$DOCKER_REGISTRY_URL"
+      - echo "DOCKER_REGISTRY_USERNAME: $DOCKER_REGISTRY_USERNAME"
+      - echo "DOCKER_REGISTRY_URL: $DOCKER_REGISTRY_URL"
       - echo "Logging into Docker registry..."
       - echo "$DOCKER_REGISTRY_PASSWORD" | docker login -u "$DOCKER_REGISTRY_USERNAME" --password-stdin "$DOCKER_REGISTRY_URL" || { echo 'Failed to login to Docker registry'; exit 1; }
       - docker build -t "$DOCKER_REGISTRY_URL/$DOCKER_REGISTRY_USERNAME/Python-app:latest" .
@@ -32,4 +32,4 @@ phases:
 artifacts:
   files:
     - '**/*'
-  #base-directory: ../Python-app
+  base-directory: ../Python-app
