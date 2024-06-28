@@ -1,1 +1,22 @@
 flask
+install:
+  runtime-versions:
+    python: 3.11
+  commands:
+    - echo "Installing dependencies..."
+    - pip install -r Python-app/requirements.txt || { echo 'pip install failed'; exit 1; }
+
+pre_build:
+  commands:
+    - echo "Installing dependencies..."
+    - pip install -r Python-app/requirements.txt --retries 5 --timeout 30
+
+
+pre_build:
+  commands:
+    - python -m venv venv
+    - source venv/bin/activate
+    - echo "Installing dependencies..."
+    - pip install -r Python-app/requirements.txt
+
+
