@@ -15,12 +15,12 @@ phases:
       - python -m pip install --upgrade pip
       - echo "Listing files at the root level..."
       - ls -l
-      - echo "Listing files in Python-app directory..."
-      - ls -l Python-app || { echo 'Directory Python-app does not exist'; exit 1; }
-      - echo "Contents of requirements.txt:"
-      - cat Python-app/requirements.txt
+      - echo "Identifying correct path to requirements.txt file..."
+
+  pre_build:
+    commands:
       - echo "Installing dependencies..."
-      - pip install -r Python-app/requirements.txt --verbose || { echo 'pip install failed'; exit 1; }
+      - pip install -r requirements.txt --verbose || { echo 'pip install failed'; exit 1; }
 
   build:
     commands:
